@@ -5,6 +5,5 @@ using UnityEngine;
 [CreateAssetMenu]
 public class StartingPosition : ScriptableObject
 {
-
     public Vector2 intialStartingValue;
 }

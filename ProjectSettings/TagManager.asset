@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Wall
+  - Shooting Enemies
+  - Enemy Detector
   layers:
   - Default
   - TransparentFX
@@ -19,8 +22,8 @@ TagManager:
   - Characters
   - Player
   - Enemies
-  - 
-  - 
+  - Projectile
+  - Door
   - 
   - 
   - 

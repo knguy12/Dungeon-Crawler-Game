@@ -63,7 +63,7 @@ public class Movement : MonoBehaviour
             player_Animator.SetFloat("Vertical", movement.y);
         }
         //Clamps map in order to ensure player does not go outside it
-        transform.position = new UnityEngine.Vector3(Mathf.Clamp(body.position.x, xLeftClamp, xRightClamp), Mathf.Clamp(body.position.y, yLeftClamp, yRightClamp), transform.position.z);
+        //transform.position = new UnityEngine.Vector3(Mathf.Clamp(body.position.x, xLeftClamp, xRightClamp), Mathf.Clamp(body.position.y, yLeftClamp, yRightClamp), transform.position.z);
     }
 
     private void FixedUpdate()

@@ -18,6 +18,7 @@ public class Dialogue : MonoBehaviour
     public bool dialogIsOptional;
     public bool dialogIsAttachedToEnemy;
     public bool isFinished;
+    [SerializeField] private bool playDialogOnlyOnce;
     public int amountOfDialogMandatory = 0;
     public int amountOfDialogOptional = 0;
     public Movement halt;
@@ -39,7 +40,8 @@ public class Dialogue : MonoBehaviour
     {
         if (collision.gameObject.name == "Player")
         {
-            interactButton.SetActive(true);
+            if(dialogIsOptional)
+              interactButton.SetActive(true);
             playerInRange = true;
         }
     }
@@ -62,17 +64,17 @@ public class Dialogue : MonoBehaviour
             yield return new WaitForSeconds(0.02f);
         }
         StopAllCoroutines();
-        
     }
 
     //Displays optional dialog
     public void displayOptionalDialog() 
     {
-        if (Input.GetKeyDown("e") && playerInRange && dialogIsOptional == true && amountOfDialogOptional < characterName.Length )
+        if (Input.GetKeyDown("e") && playerInRange && dialogIsOptional == true && amountOfDialogOptional < dialog.Length )
         {
             interactButton.SetActive(false);
-            dialogText.text = " ";
+            dialogText.text = "";
             dialogbox.SetActive(true);
+           
             //Stops player movement until dialog is completed
             halt.canMove = false;
             StopAllCoroutines();
@@ -81,13 +83,16 @@ public class Dialogue : MonoBehaviour
             //Checks to make sure amountOfDialogOptional does not exceed the array size and turns off dialog if so
             amountOfDialogOptional++;
         }
-        else if (amountOfDialogOptional >= characterName.Length && Input.GetKeyDown("e"))
+        else if (amountOfDialogOptional >= dialog.Length && Input.GetKeyDown("e"))
         {
+            if (playDialogOnlyOnce)
+                gameObject.SetActive(false);
             dialogbox.SetActive(false);
             halt.canMove = true;
             //Checks if dialog will be followed by enemy attack and makes sure dialog completes before enemy attacks
             if (dialogIsAttachedToEnemy)
                 isFinished = true;
+
         }
     }
     //Displays mandatory dialog
@@ -95,7 +100,7 @@ public class Dialogue : MonoBehaviour
     {
         if (playerInRange && dialogIsMandatory == true)
         {
-            dialogText.text = " ";
+            dialogText.text = "";
             dialogbox.SetActive(true);
             halt.canMove = false;
             StartCoroutine(typeWriter(dialog[amountOfDialogMandatory]));
