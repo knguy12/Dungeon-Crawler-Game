@@ -36,6 +36,7 @@ public class WhiteOrb : Orb
         if (Input.GetKeyDown("q") && inventory.Contains("WhiteOrb"))
         {
             playerAnimator.Play("WhitePowerUp");
+            PlayPowerUpSound();
             StartCoroutine(WhitePower());
             orbProfile.color = Color.clear;
             inventory.Remove("WhiteOrb");

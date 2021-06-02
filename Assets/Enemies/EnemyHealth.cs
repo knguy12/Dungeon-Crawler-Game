@@ -15,27 +15,34 @@ public class EnemyHealth : MonoBehaviour
     
     public int maxHealth;
     public int currentHealth;
+    public bool dead = false;
 
+    [SerializeField] private AudioSource EnemyHurt;
     private void Start()
     {
         spriteRend = GetComponent<SpriteRenderer>();
         enemyHealthbar.SetActive(false);
     }
-    public void setHealthInfo() 
+    public void SetHealthInfo() 
     {
         nameText.text = enemy.enemyName;
         sliderHealthBar.maxValue = maxHealth;
         sliderHealthBar.value = currentHealth;
     }
-    public void setHealth(int health)
+    public void SetHealth(int health)
     {
         sliderHealthBar.value = health;
     }
-    public void takeDamage(int damage)
+    public void TakeDamage(int damage)
     {
+        EnemyHurt.Play();
         currentHealth -= damage;
         StartCoroutine(Flash());
-        setHealth(currentHealth);
+        SetHealth(currentHealth);
+        if (currentHealth <= 0) 
+        {
+            dead = true;
+        }
     }
     //Makes enemy flash white whenever they take damage
     IEnumerator Flash()

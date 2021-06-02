@@ -8,9 +8,11 @@ public class Thug1AI : Enemy
     [SerializeField] private GameObject bulletPreFab;
     [SerializeField] private Transform bulletSpawn;
     [SerializeField] private CutScene scene;
+    [SerializeField] private AudioManager aud;
 
     protected override void Start()
     {
+        aud = GetComponent<AudioManager>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
@@ -63,6 +65,7 @@ public class Thug1AI : Enemy
             if (Time.time > lastAttacked + attackSpeed)
             {
                 animator.SetTrigger("isAttacking");
+                aud.Play("Attack");
                 Shoot();
                 lastAttacked = Time.time;
             }
@@ -73,7 +76,7 @@ public class Thug1AI : Enemy
         if(!Dead())
             spriteRend.flipX = playerLocation.transform.position.x > transform.position.x;
     }
-    //Switches between idle and waling animation
+    //Switches between idle and walking animation
     private void CheckIfMoving() 
     {
         if (rb.IsSleeping())

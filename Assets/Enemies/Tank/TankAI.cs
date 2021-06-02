@@ -9,6 +9,10 @@ public class TankAI : Enemy
     [SerializeField] private GameObject bulletPreFab;
     [SerializeField] private Transform bulletSpawn;
     [SerializeField] private int numberOfProjectiles;
+    [SerializeField] private AudioSource Sphere;
+    [SerializeField] private AudioSource Hit;
+    [SerializeField] private AudioSource Death;
+
     private float radius;
 
     protected override void Start()
@@ -48,6 +52,15 @@ public class TankAI : Enemy
             Attack();
         }
     }
+    protected override void Attack()
+    {
+        if (Time.time > lastAttacked + attackSpeed)
+        {
+            Hit.Play();
+            playerHealth.takeDamage(damage);
+            lastAttacked = Time.time;
+        }
+    }
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.name == "Player")
@@ -55,11 +68,12 @@ public class TankAI : Enemy
     }
     private void bulletAttack()
     {
-        if (playerInRange)
+        if (playerInRange && !animator.GetBool("isAttacking"))
         {
             if (Time.time > lastAttacked + attackSpeed)
             {
                 Shoot();
+                Sphere.Play();
                 lastAttacked = Time.time;
             }
         }
@@ -86,6 +100,17 @@ public class TankAI : Enemy
             rb.AddForce(projectileMoveDirection * bulletSpeed, ForceMode2D.Impulse);
 
             angle += angleStep;
+        }
+    }
+    protected override void PlayDeathAnimation()
+    {
+        if (Dead())
+        {
+            moveSpeed = 0;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+            Death.Play();
+            animator.SetTrigger("fatalDamageDone");
+            Destroy(gameObject, 5f);
         }
     }
 }

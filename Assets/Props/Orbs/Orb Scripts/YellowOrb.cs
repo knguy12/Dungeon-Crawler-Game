@@ -29,7 +29,9 @@ public class YellowOrb : Orb
         if (Input.GetKeyDown("q") && inventory.Contains("YellowOrb")) 
         {
             playerAnimator.Play("YellowPowerUp");
+            PlayPowerUpSound();
             StartCoroutine(YellowPower());
+            //Removes orb values from UI
             orbProfile.color = Color.clear;
             orbDescription.text = "";
             inventory.Remove("YellowOrb");

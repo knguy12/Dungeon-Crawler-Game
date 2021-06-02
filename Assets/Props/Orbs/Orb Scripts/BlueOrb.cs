@@ -20,6 +20,8 @@ public class BlueOrb : Orb
     {
         if (Input.GetKeyDown("q") && inventory.Contains("BlueOrb")) 
         {
+            playerAnimator.Play("BluePowerUp");
+            PlayPowerUpSound();
             playerHealth.heal(20);
             orbProfile.color = Color.clear;
             orbDescription.text = "";

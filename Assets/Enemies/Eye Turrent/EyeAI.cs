@@ -7,6 +7,10 @@ public class EyeAI : Enemy
     [SerializeField] private int bulletSpeed;
     [SerializeField] private GameObject bulletPreFab;
     [SerializeField] private Transform bulletSpawn;
+    [SerializeField] private AudioSource Fire;
+    [SerializeField] private AudioSource Death;
+    private bool deadOneShot = true;
+
 
     // Start is called before the first frame update
     protected override void Start()
@@ -27,6 +31,7 @@ public class EyeAI : Enemy
             if (Time.time > lastAttacked + attackSpeed)
             {
                 animator.SetTrigger("isAttacking");
+                Fire.Play();
                 Shoot();
                 lastAttacked = Time.time;
             }
@@ -47,10 +52,13 @@ public class EyeAI : Enemy
     }
     protected override void PlayDeathAnimation()
     {
-        if (Dead())
+        if (Dead() && deadOneShot)
         {
             moveSpeed = 0;
+            Death.Play();
             animator.SetTrigger("fatalDamageDone");
+            Destroy(gameObject, 5f);
+            deadOneShot = false;
         }
     }
     //Yes I know this is bad but I dont care so cry more

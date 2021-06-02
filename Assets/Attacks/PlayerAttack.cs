@@ -12,6 +12,7 @@ public class PlayerAttack : MonoBehaviour
     public Transform attackPoint;
     public Movement direction;
     public Animator attackAnimation;
+    public AudioManager aud;
 
     public LayerMask enemyLayers;
     
@@ -27,6 +28,7 @@ public class PlayerAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        aud = GetComponent<AudioManager>();
         playerBody = GetComponent<Rigidbody2D>();
         enemyHealthBar.SetActive(false);
     }
@@ -67,22 +69,30 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
+    private IEnumerator AttackPause()
+    {
+        GetComponent<Movement>().enabled = false;
+        yield return new WaitForSeconds(0.1f);
+        GetComponent<Movement>().enabled = true;
+    }
     private void UserAttack()
     {
+        aud.Play("Player Attack");
         attackAnimation.SetTrigger("Attack");
+        StartCoroutine(AttackPause());
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
         foreach (Collider2D enemies in hitEnemies)
         {
             Enemy enemy = enemies.GetComponent<Enemy>();
             EnemyHealth enemyHealth = enemies.GetComponent<EnemyHealth>();
-            if (enemy != null && enemyHealth != null)
+            if (enemy != null && enemyHealth != null && !enemy.Dead())
             {
                 //Turns on healthbar if enemy is hit and turns it off if they die
-                enemyHealth.setHealthInfo();
+                enemyHealth.SetHealthInfo();
                 enemyHealthBar.SetActive(true);
 
                 //Shows damge in health bar and plays hurt animation
-                enemy.TakeDamage(playerAttackDamage);
+                enemyHealth.TakeDamage(playerAttackDamage);
 
                 if (enemy.Dead())
                 {

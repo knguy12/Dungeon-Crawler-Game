@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Music Store.unity
+    path: Assets/Scenes/Music Store 1.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 0
     path: 
@@ -20,4 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Dungeon Level.unity
     guid: 39169cb658c02754cafea6e48a4f6806
+  - enabled: 1
+    path: Assets/Scenes/Music Store 2.unity
+    guid: 75f592c597d039b4fa1b8cdd8324fb85
+  - enabled: 1
+    path: Assets/Scenes/Boss Level.unity
+    guid: a60ac0679c9be66449e25915897f6688
   m_configObjects: {}

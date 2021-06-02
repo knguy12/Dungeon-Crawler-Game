@@ -75,7 +75,7 @@ public class Enemy : MonoBehaviour
         if (collision.CompareTag("Player"))
             playerInRange = false;
     }
-    //Gets random location for bomber to move to with a max distance of 2 from its previous position in the x and y direction
+    //Gets random location for enemy to move to with a max distance of 2 from its previous position in the x and y direction
     protected virtual void GetPatrolPosition()
     {
         targetLocation = new Vector2(transform.position.x + UnityEngine.Random.Range(-5, 5), transform.position.y + UnityEngine.Random.Range(-5, 5));
@@ -98,6 +98,7 @@ public class Enemy : MonoBehaviour
             moveSpeed = 0;
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
             animator.SetTrigger("fatalDamageDone");
+            Destroy(gameObject, 5f);
         }
     }
     //Checks if enemy runs into a wall and turns it around
@@ -131,10 +132,6 @@ public class Enemy : MonoBehaviour
     protected virtual void OnCollisionStay2D(Collision2D collision)
     {
         GetPatrolPosition();
-    }
-    public void TakeDamage(int damage) 
-    {
-        enemyHealth.takeDamage(damage);
     }
     //Checks if enemy is dead
     public bool Dead() 

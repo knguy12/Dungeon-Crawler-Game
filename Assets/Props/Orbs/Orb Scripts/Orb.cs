@@ -14,6 +14,9 @@ public class Orb : MonoBehaviour
     [SerializeField] protected Image orbProfile;
     [SerializeField] protected Sprite NewImage;
     [SerializeField] protected string orbAbility;
+    [SerializeField] AudioSource pickUp;
+    [SerializeField] AudioSource powerUp;
+
     protected bool playerInRange;
     protected HashSet<string> inventory;
     protected bool pickedUp;
@@ -55,9 +58,14 @@ public class Orb : MonoBehaviour
             orbProfile.sprite = NewImage;
             //Plays orb pick up animation and adds the orb into the inventory hashset
             orbAnimator.SetTrigger("itemPickedUp");
+            pickUp.Play();
             inventory.Add(this.GetType().ToString());
         }
         if (inventory.Count >= 1)
             print("inventory is full");
+    }
+    public void PlayPowerUpSound() 
+    {
+        powerUp.Play();
     }
 }

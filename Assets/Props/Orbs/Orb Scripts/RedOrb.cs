@@ -31,6 +31,7 @@ public class RedOrb : Orb
         if (Input.GetKeyDown("q") && inventory.Contains("RedOrb")) 
         {
             playerAnimator.Play("RedPowerUp");
+            PlayPowerUpSound();
             StartCoroutine(RedPower());
             orbProfile.color = Color.clear;
             orbDescription.text = "";

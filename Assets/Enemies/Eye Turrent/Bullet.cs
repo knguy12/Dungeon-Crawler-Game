@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private GameObject hitEffect;
     [SerializeField] private int damage;
+
     private void Start()
     {
         StartCoroutine(SelfDestruct());
@@ -18,6 +19,8 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log(collision.name);
+        //Ensures the bullet does not get destroyed from colliding with triggers or the enemy firing it
         if (!collision.CompareTag("Shooting Enemies") && !collision.CompareTag("Enemy Detector"))
         {
             //Checks if player collides with bullet and reduce health accordingly

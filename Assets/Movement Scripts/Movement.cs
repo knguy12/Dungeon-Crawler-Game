@@ -15,7 +15,7 @@ public class Movement : MonoBehaviour
     public float LastMoveX;
     public float LastMoveY;
 
-    
+ 
     public float xLeftClamp;
     public float xRightClamp;
     public float yLeftClamp;

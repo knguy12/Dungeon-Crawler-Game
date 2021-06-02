@@ -5,9 +5,11 @@ using UnityEngine;
 public class Thug2AI : Enemy
 {
     [SerializeField] private CutScene scene;
+    [SerializeField] private AudioManager aud;
     private CircleCollider2D collide;
     protected override void Start()
     {
+        aud = GetComponent<AudioManager>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         collide = GetComponent<CircleCollider2D>();
@@ -21,6 +23,7 @@ public class Thug2AI : Enemy
     }
     protected override void FixedUpdate()
     {
+        CheckIfMoving();
         if (scene.cutSceneHasFinished) 
             ChasePlayer();
     }
@@ -36,6 +39,7 @@ public class Thug2AI : Enemy
             if (Time.time > lastAttacked + attackSpeed)
             {
                 animator.SetTrigger("isAttacking");
+                aud.Play("Attack");
                 playerHealth.takeDamage(damage);
                 lastAttacked = Time.time;
             }
@@ -57,5 +61,12 @@ public class Thug2AI : Enemy
         base.PlayDeathAnimation();
         if (Dead())
             Destroy(collide);
+    }
+    private void CheckIfMoving()
+    {
+        if (rb.IsSleeping())
+            animator.SetBool("isMoving", false);
+        else
+            animator.SetBool("isMoving", true);
     }
 }

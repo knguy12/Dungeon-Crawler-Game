@@ -30,6 +30,7 @@ public class GreenOrb : Orb
         {
             //Plays useranimation and gives buff
             playerAnimator.Play("GreenPowerUp");
+            PlayPowerUpSound();
             StartCoroutine(GreenPower());
             //Clears out UI and removes the orb from the player inventory
             orbProfile.color = Color.clear;

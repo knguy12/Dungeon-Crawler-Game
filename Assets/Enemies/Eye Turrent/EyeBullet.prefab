@@ -121,7 +121,7 @@ MonoBehaviour:
   hitEffect: {fileID: 2367782203860308610, guid: 602a9ee67ee00b3448b221db4904e410,
     type: 3}
   damage: 20
-  timer: 5
+  playerHurt: {fileID: 0}
 --- !u!58 &7360518736213040527
 CircleCollider2D:
   m_ObjectHideFlags: 0

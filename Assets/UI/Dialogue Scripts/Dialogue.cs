@@ -16,16 +16,17 @@ public class Dialogue : MonoBehaviour
     public bool playerInRange;
     public bool dialogIsMandatory;
     public bool dialogIsOptional;
-    public bool dialogIsAttachedToEnemy;
     public bool isFinished;
     [SerializeField] private bool playDialogOnlyOnce;
     public int amountOfDialogMandatory = 0;
     public int amountOfDialogOptional = 0;
     public Movement halt;
+    public AudioSource typeWriterSound;
 
     // Start is called before the first frame update
     void Start()
     {
+        typeWriterSound = GetComponent<AudioSource>();
         dialogbox.SetActive(false);
         interactButton.SetActive(false);
     }
@@ -60,6 +61,7 @@ public class Dialogue : MonoBehaviour
     {
         foreach(char letter in sentence.ToCharArray()) 
         {
+            typeWriterSound.Play();
             dialogText.text += letter;
             yield return new WaitForSeconds(0.02f);
         }
@@ -88,11 +90,11 @@ public class Dialogue : MonoBehaviour
             if (playDialogOnlyOnce)
                 gameObject.SetActive(false);
             dialogbox.SetActive(false);
-            halt.canMove = true;
-            //Checks if dialog will be followed by enemy attack and makes sure dialog completes before enemy attacks
-            if (dialogIsAttachedToEnemy)
-                isFinished = true;
-
+            interactButton.SetActive(false);
+            amountOfDialogMandatory = 0;
+            amountOfDialogOptional = 0;
+            halt.canMove = true;    
+            isFinished = true;
         }
     }
     //Displays mandatory dialog
