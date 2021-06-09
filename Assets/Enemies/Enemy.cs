@@ -115,8 +115,11 @@ public class Enemy : MonoBehaviour
     {
         if (waypoints == null)
             return;
-        if(waypoints.Contains(target))
+        if (waypoints.Contains(target))
+        {
             GetPatrolPosition();
+            waypoints.Clear();
+        }
         else
             waypoints.Add(target);
     }

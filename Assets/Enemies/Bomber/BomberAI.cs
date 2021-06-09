@@ -8,6 +8,7 @@ public class BomberAI : Enemy
     [SerializeField] private float detonationTime;
     [SerializeField] private CameraShake camShake;
     [SerializeField] private GameObject enemyHealthDisplay;
+    [SerializeField] private PlayerAttack playerKillCounter;
     private bool oneShotSound = true;
     private bool oneShotExplode = true;
     private bool bombHasBlown = false;
@@ -15,7 +16,10 @@ public class BomberAI : Enemy
     [SerializeField] private AudioSource Fuse;
     [SerializeField] private AudioSource Explode;
 
-
+    protected override void Start()
+    {
+        base.Start();
+    }
     protected override void ChasePlayer()
     {
         if (animator.GetBool("isAttacking")) 
@@ -25,6 +29,7 @@ public class BomberAI : Enemy
             if (oneShotSound) 
             {
                 Fuse.Play();
+                moveSpeed += 1;
                 oneShotSound = false;
             }
             //Counts down before bomber begins detonating bomb
@@ -37,6 +42,8 @@ public class BomberAI : Enemy
                 //Playes the bomb explosion sound effect exactly once
                 if (oneShotExplode) 
                 {
+                    //Ensures that even if bomber dies by exploding itself, player still gets points for it
+                    playerKillCounter.IncrementEnemyKillCounter();
                     Explode.Play();
                     oneShotExplode = false;
                 }
@@ -57,7 +64,7 @@ public class BomberAI : Enemy
         }
         Destroy(gameObject, 5f);
     }
-    //Plays death animation and does damage to player if enemy gets destroyed
+    //Plays death animation and does damage to player destroys enemy and is in range of explosion
     protected override void PlayDeathAnimation()
     {
         if (enemyHealth.GetCurrentHealth() <= 0) 
@@ -70,7 +77,6 @@ public class BomberAI : Enemy
                 Explode.Play();
                 oneShotExplode = false;
             }
-            Attack();
         }
     }
 

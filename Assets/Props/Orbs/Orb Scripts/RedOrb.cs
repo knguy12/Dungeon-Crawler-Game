@@ -20,23 +20,22 @@ public class RedOrb : Orb
     //Increases players attack damage and movement speed for 10 seconds
     IEnumerator RedPower() 
     {
-        attack.playerAttackDamage += 20;
-        movement.movementSpeed -= 1;
-        yield return new WaitForSeconds(10f);
-        attack.playerAttackDamage -= 20;
-        movement.movementSpeed += 1;
+        attack.playerAttackDamage += 10;
+        yield return new WaitForSeconds(5f);
+        attack.playerAttackDamage -= 10;
+        Destroy(this.gameObject);
     }
     private void UsePower() 
     {
-        if (Input.GetKeyDown("q") && inventory.Contains("RedOrb")) 
+        if (Input.GetKeyDown("q") && playerInv.inventory.Contains("RedOrb" + orbID))
         {
             playerAnimator.Play("RedPowerUp");
             PlayPowerUpSound();
             StartCoroutine(RedPower());
             orbProfile.color = Color.clear;
             orbDescription.text = "";
-            inventory.Remove("RedOrb");
-            Destroy(gameObject, 11f);
+            playerInv.RemoveOrb("RedOrb" + orbID);
+            this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 }

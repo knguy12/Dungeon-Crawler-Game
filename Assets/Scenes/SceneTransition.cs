@@ -8,7 +8,7 @@ public class SceneTransition : MonoBehaviour
     [SerializeField] private string SceneToLoad;
     [SerializeField] private GameObject interactPrompt;
     [SerializeField] private bool PlaySceneOnTrigger; //Loads scene immediately without waiting for user input
-    private bool playerInRange;
+    public bool playerInRange;
 
     // Update is called once per frame
     void Update()
@@ -17,10 +17,14 @@ public class SceneTransition : MonoBehaviour
     }
     private void loadScene() 
     {
-        if(PlaySceneOnTrigger)
+        if (PlaySceneOnTrigger)
+        {
             SceneManager.LoadScene(SceneToLoad);
-        else if (playerInRange && Input.GetKeyDown("e")) 
+        }
+        else if (playerInRange && Input.GetKeyDown("e"))
+        {
             SceneManager.LoadScene(SceneToLoad);
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

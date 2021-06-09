@@ -57,11 +57,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Props\Orbs\Orb Scripts\BlueOrb.cs" />
+    <Compile Include="Assets\Props\Orbs\Orb Scripts\PlayerInventory.cs" />
     <Compile Include="Assets\Enemies\Enemy.cs" />
-    <Compile Include="Assets\Audio\Audio Scripts\MusicFadeOut.cs" />
+    <Compile Include="Assets\Audio\Audio Scripts\FadeIn.cs" />
     <Compile Include="Assets\Enemies\DestroyOnExit.cs" />
     <Compile Include="Assets\Movement Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Enemies\EnemyHealth.cs" />
+    <Compile Include="Assets\Enemies\DoorActivator.cs" />
     <Compile Include="Assets\Enemies\FInal Boss\Scripts\FinalBoss.cs" />
     <Compile Include="Assets\Scriptable Objects\Starting Position.cs" />
     <Compile Include="Assets\Movement Scripts\Movement.cs" />
@@ -87,8 +89,8 @@
     <Compile Include="Assets\Props\Orbs\Orb Scripts\GreenOrb.cs" />
     <Compile Include="Assets\UI\Dialogue Scripts\Dialogue.cs" />
     <Compile Include="Assets\Props\Orbs\Orb Scripts\YellowOrb.cs" />
-    <Compile Include="Assets\CutScene\CutScene.cs" />
     <Compile Include="Assets\Player Animation\Death\GameOverButton.cs" />
+    <Compile Include="Assets\CutScene\CutScene.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

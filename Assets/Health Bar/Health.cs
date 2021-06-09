@@ -43,6 +43,9 @@ public class Health : MonoBehaviour
     public void heal(int amount) 
     {
         currentHealth += amount;
+        //Checks if heal amount is over 100 and sets it back to 100
+        if (currentHealth > 100)
+            currentHealth = 100;
         setHealth(currentHealth);
     }
     public void PlayDeath() 

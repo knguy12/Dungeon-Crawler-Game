@@ -5,9 +5,9 @@ using UnityEngine;
 public class ChargerAI : Enemy
 {
     private bool playerInCollision;
-    private Vector2 playerLoc;
     private bool deadChecker = true;
-    private float chargeTime = 1.0f;
+    private float chargeTime = 0.1f;
+    [SerializeField] private float thrust;
     [SerializeField] private AudioSource Death;
     [SerializeField] private AudioSource Boom;
 
@@ -21,6 +21,7 @@ public class ChargerAI : Enemy
         base.OnCollisionEnter2D(collision);
         if (collision.gameObject.name == "Player")
             playerInCollision = true;
+      
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -31,13 +32,9 @@ public class ChargerAI : Enemy
         //Charger chases after player location and if the charger reaches player location with collision then it will try to find the location of the player again
         if (animator.GetBool("isAttacking")) 
         {
-            if (Vector2.Distance(transform.position, playerLoc) < 1f)
-            {
-                int randomInt = UnityEngine.Random.Range(-3, 3);
-                playerLoc = new Vector2(playerLocation.transform.position.x + randomInt, playerLocation.transform.position.y + randomInt);
-            }
-            //Checks if charger has reached players previous found location
-            transform.position = Vector2.MoveTowards(transform.position, playerLoc, moveSpeed * Time.deltaTime);
+            if (Vector2.Distance(transform.position, targetLocation) < 2f)
+                Invoke("CalculateDir", 1.5f);
+            transform.position = Vector2.MoveTowards(transform.position, targetLocation, moveSpeed * Time.deltaTime);
 
             //If player collides with 2D collider have them take damage
             if (playerInCollision) 
@@ -46,7 +43,11 @@ public class ChargerAI : Enemy
             }
         }
     }
-
+    private void CalculateDir()
+    {
+        targetLocation = playerLocation.transform.position;
+    }
+    //If player comes in range of charger and stays in collision up to a certain amount of time, then change charger state from idle to attacking
     private void Charge() 
     {
         if (playerInRange && !animator.GetBool("isAttacking"))
@@ -57,14 +58,9 @@ public class ChargerAI : Enemy
             if (chargeTime < 0)
             {
                 animator.SetBool("isAttacking", true);
-                targetLocation = playerLocation.transform.position;
-                moveSpeed = 4;
+                moveSpeed += 4;
             }
         }
-    }
-    protected override void FlipSprite()
-    {
-        spriteRend.flipX = targetLocation.x > transform.position.x;
     }
     //Plays enemy proc animation when player enters collider and stops charger from moving for a short duration
     protected override void OnTriggerEnter2D(Collider2D collision)
@@ -88,9 +84,5 @@ public class ChargerAI : Enemy
             Destroy(gameObject, 5f);
         }
 
-    }
-    //Removes unnecessary method from super class
-    protected override void OnTriggerExit2D(Collider2D collision)
-    {
     }
 }

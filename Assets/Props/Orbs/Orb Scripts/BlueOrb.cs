@@ -18,15 +18,15 @@ public class BlueOrb : Orb
     //Heals player for 20 health on use
     private void UsePower() 
     {
-        if (Input.GetKeyDown("q") && inventory.Contains("BlueOrb")) 
+        if (Input.GetKeyDown("q") && playerInv.inventory.Contains("BlueOrb" + orbID)) 
         {
             playerAnimator.Play("BluePowerUp");
             PlayPowerUpSound();
-            playerHealth.heal(20);
+            playerHealth.heal(50);
             orbProfile.color = Color.clear;
             orbDescription.text = "";
-            inventory.Remove("BlueOrb");
-            Destroy(gameObject, 1f);
+            playerInv.RemoveOrb("BlueOrb" + orbID);
+            Destroy(this.gameObject);
         }
     }
 }

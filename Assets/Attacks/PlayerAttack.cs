@@ -1,8 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Numerics;
-using UnityEditor.Build;
-using System;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
@@ -102,10 +98,8 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
-    private void OnDrawGizmos()
+    public void IncrementEnemyKillCounter()
     {
-        if (attackPoint == null)
-            return;
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        enemyKilledCounter++;
     }
 }

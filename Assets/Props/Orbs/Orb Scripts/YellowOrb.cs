@@ -20,13 +20,14 @@ public class YellowOrb : Orb
     {
         attack.attackRange += 1;
         attack.attackSpeed += 4;
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(5f);
         attack.attackRange -= 1;
         attack.attackSpeed -= 4;
+        Destroy(this.gameObject);
     }
     private void UsePower() 
     {
-        if (Input.GetKeyDown("q") && inventory.Contains("YellowOrb")) 
+        if (Input.GetKeyDown("q") && playerInv.inventory.Contains("YellowOrb" + orbID)) 
         {
             playerAnimator.Play("YellowPowerUp");
             PlayPowerUpSound();
@@ -34,8 +35,9 @@ public class YellowOrb : Orb
             //Removes orb values from UI
             orbProfile.color = Color.clear;
             orbDescription.text = "";
-            inventory.Remove("YellowOrb");
-            Destroy(gameObject, 11f);
+            playerInv.RemoveOrb("YellowOrb" + orbID);
+            this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+
         }
     }
 }

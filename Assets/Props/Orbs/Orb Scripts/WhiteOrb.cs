@@ -21,27 +21,28 @@ public class WhiteOrb : Orb
     //Increases all player stats for 10 seconds
     private IEnumerator WhitePower() 
     {
-        movement.movementSpeed += 5;
+        movement.movementSpeed += 3;
         attack.playerAttackDamage += 20;
         attack.attackRange += 1;
         attack.attackSpeed += 4;
-        yield return new WaitForSeconds(10f);
-        movement.movementSpeed -= 5;
+        yield return new WaitForSeconds(5f);
+        movement.movementSpeed -= 3;
         attack.playerAttackDamage -= 20;
         attack.attackRange -= 1;
         attack.attackSpeed -= 4;
+        Destroy(this.gameObject);
     }
     private void UsePower() 
     {
-        if (Input.GetKeyDown("q") && inventory.Contains("WhiteOrb"))
+        if (Input.GetKeyDown("q") && playerInv.inventory.Contains("WhiteOrb" + orbID))
         {
             playerAnimator.Play("WhitePowerUp");
             PlayPowerUpSound();
             StartCoroutine(WhitePower());
             orbProfile.color = Color.clear;
-            inventory.Remove("WhiteOrb");
+            playerInv.RemoveOrb("WhiteOrb" + orbID);
             orbDescription.text = "";
-            Destroy(gameObject, 11f);
+            this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 }

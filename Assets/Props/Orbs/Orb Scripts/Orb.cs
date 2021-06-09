@@ -9,6 +9,7 @@ public class Orb : MonoBehaviour
     [SerializeField] protected Animator playerAnimator;
     [SerializeField] protected Animator orbAnimator;
     [SerializeField] protected GameObject player;
+    [SerializeField] protected PlayerInventory playerInv;
     [Header("UI Settings")]
     [SerializeField] protected Text orbDescription;
     [SerializeField] protected Image orbProfile;
@@ -16,15 +17,13 @@ public class Orb : MonoBehaviour
     [SerializeField] protected string orbAbility;
     [SerializeField] AudioSource pickUp;
     [SerializeField] AudioSource powerUp;
+    [SerializeField] protected int orbID;
 
     protected bool playerInRange;
-    protected HashSet<string> inventory;
     protected bool pickedUp;
     protected virtual void Start()
     {
-        pickedUp = false;
         orbAnimator = GetComponent<Animator>();
-        inventory = new HashSet<string>();
     }
     protected virtual void Update()
     {
@@ -49,20 +48,24 @@ public class Orb : MonoBehaviour
     }
     private void checkPlayerPickUp()
     {
+        if (playerInv.GetInventoryCount() >= 1) 
+        {
+            return;
+        }
         //Checks to make sure that player is in range and player dosent already have an orb in their inventory
-        if (playerInRange && Input.GetKeyDown("e") && inventory.Count < 1)
+        if (playerInRange && Input.GetKeyDown("e"))
         {
             //Sets the UI elements
             orbDescription.text = orbAbility;
             orbProfile.color = Color.white;
             orbProfile.sprite = NewImage;
+
             //Plays orb pick up animation and adds the orb into the inventory hashset
             orbAnimator.SetTrigger("itemPickedUp");
             pickUp.Play();
-            inventory.Add(this.GetType().ToString());
+            playerInv.AddItem(this.GetType().ToString() + orbID);
         }
-        if (inventory.Count >= 1)
-            print("inventory is full");
+       
     }
     public void PlayPowerUpSound() 
     {

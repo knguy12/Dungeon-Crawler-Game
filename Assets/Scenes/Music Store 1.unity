@@ -696,7 +696,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 1c11f2f19a1fbfc49a23ff98488cff9d, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
@@ -1317,7 +1317,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 10
-  m_Text: What the tell you think you're doing?
+  m_Text: What the hell you think you're doing?
 --- !u!222 &433551022
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1948,7 +1948,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 1c11f2f19a1fbfc49a23ff98488cff9d, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
@@ -2365,7 +2365,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 1c11f2f19a1fbfc49a23ff98488cff9d, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
@@ -2474,7 +2474,7 @@ MonoBehaviour:
   - Reigen
   dialog:
   - Are you sure its okay to run away?
-  - That man Mr.Marcus is outputting  extreme power
+  - That man Mr.Marcus is outputting extreme power
   - I've run out of salt so I can't beat him in my state
   - If I can't beat him then you definetly can't
   - 'Lets retreat to the ramen store '
@@ -5155,7 +5155,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 10
-  m_Text: WHAT!!!WHERE AM I?..........wait oh
+  m_Text: WHAT!!! WHERE AM I?..........wait oh
 --- !u!222 &1482946298
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6308,7 +6308,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 1c11f2f19a1fbfc49a23ff98488cff9d, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
@@ -6637,7 +6637,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 1c11f2f19a1fbfc49a23ff98488cff9d, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
@@ -6770,7 +6770,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1977276010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6846,6 +6846,8 @@ PlayableDirector:
   - key: {fileID: -5185229150913592555, guid: 646b7367b783978448c8d6d19e5a9a1d, type: 2}
     value: {fileID: 0}
   - key: {fileID: 4215518707112176998, guid: 646b7367b783978448c8d6d19e5a9a1d, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 8360876229848716770, guid: 646b7367b783978448c8d6d19e5a9a1d, type: 2}
     value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
